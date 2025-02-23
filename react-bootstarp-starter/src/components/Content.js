@@ -3,8 +3,7 @@ import Dashboard from "./Dashboard";
 
 function Content() {
     return (
-    <div className="container-fluid">
-       
+    <div className="container-fluid">  
         <Routes>
         <Route path="/" element={<Dashboard />} />
         {/* <Route path="/charts" element={<Charts />} />
