@@ -1,21 +1,25 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./components/Home";
+import Login from "./components/Login";
 import AdminPanelLayout from "./components/AdminPanelLayout";
 import Dashboard from "./components/Dashboard";
-import Layout from "./components/Layout";
+import Register from "./components/Register";
+import BaseLayout from "./components/BaseLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
+    
     <Router>
     <Routes>
       {/* Routes with Layout1 */}
-      <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/about" element={<About />} /> */}
+      <Route element={<BaseLayout />}>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Route>
 
       {/* Routes with Layout2 */}
-      <Route element={<AdminPanelLayout />}>
+      <Route element={<ProtectedRoute layout={AdminPanelLayout}   />}>
         <Route path="/dashboard" element={<Dashboard />} />
        {/*  <Route path="/profile" element={<Profile />} /> */}
       </Route>

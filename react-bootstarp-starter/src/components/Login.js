@@ -1,8 +1,32 @@
-import React from 'react';
+import React,{ useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../features/authSlice";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-function Home(){
+function Login(){
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { error } = useSelector((state) => state.auth);
+    const { login } = useContext(AuthContext);
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const result = await dispatch(loginUser({ email, password }));
+      if (result.meta.requestStatus === "fulfilled"){
+        const token = result.payload.token;
+        login(token);
+        navigate("/dashboard");
+      } 
+    };
+
   return (
-    <div className="bg-gradient-primary">
+    <div >
          <div className="container">
 
 <div className="row justify-content-center">
@@ -19,20 +43,21 @@ function Home(){
                             <div className="text-center">
                                 <h1 className="h4 text-gray-900 mb-4">Employee Management System</h1>
                             </div>
-                            <form className="user">
+                            <form className="user" onSubmit={handleSubmit}>
+                            {error && <p className="text-danger">{error.message}</p>}
                                 <div className="form-group">
                                     <input type="email" className="form-control form-control-user"
-                                        id="exampleInputEmail" aria-describedby="emailHelp"
+                                        id="exampleInputEmail" value={email} onChange={(e) => setEmail(e.target.value)} required
                                         placeholder="Enter Email Address..."/>
                                 </div>
                                 <div className="form-group">
                                     <input type="password" className="form-control form-control-user"
-                                        id="exampleInputPassword" placeholder="Password"/>
+                                        id="exampleInputPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                                 </div>
                                
-                                <a href="index.html" className="btn btn-primary btn-user btn-block">
+                                <button type='submit' className="btn btn-primary btn-user btn-block">
                                     Login
-                                </a>
+                                </button>
                                 
                             </form>
                             <hr/>
@@ -40,7 +65,7 @@ function Home(){
                                 <a className="small" href="forgot-password.html">Forgot Password?</a>
                             </div>
                             <div className="text-center">
-                                <a className="small" href="register.html">Create an Account!</a>
+                                <Link className="small" to="/register">Create an Account!</Link>
                             </div>
                         </div>
                     </div>
@@ -58,4 +83,4 @@ function Home(){
   )
 }
 
-export default Home;
+export default Login;
