@@ -20,7 +20,8 @@ function Login(){
       const result = await dispatch(loginUser({ email, password }));
       if (result.meta.requestStatus === "fulfilled"){
         const token = result.payload.token;
-        login(token);
+        const user = JSON.stringify(result.payload.user);
+        login(token,user);
         navigate("/dashboard");
       } 
     };

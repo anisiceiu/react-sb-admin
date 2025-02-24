@@ -6,14 +6,16 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
 
   // Function to login (store token)
-  const login = (token) => {
+  const login = (token,user) => {
     localStorage.setItem("token", token);
+    localStorage.setItem("user", user);
     setIsAuthenticated(true);
   };
 
   // Function to logout (remove token)
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setIsAuthenticated(false);
   };
 

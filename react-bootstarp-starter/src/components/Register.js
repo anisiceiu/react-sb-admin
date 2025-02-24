@@ -2,7 +2,7 @@
 import React, { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../features/userSlice';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate,Link } from 'react-router-dom'; // Import useNavigate
 
 
 const Register = () => {
@@ -110,7 +110,7 @@ const Register = () => {
                                 <a className="small" href="forgot-password.html">Forgot Password?</a>
                             </div>
                             <div className="text-center">
-                                <a className="small" href="login.html">Already have an account? Login!</a>
+                                <Link className="small" to="/login">Already have an account? Login!</Link>
                             </div>
                         </div>
                     </div>
