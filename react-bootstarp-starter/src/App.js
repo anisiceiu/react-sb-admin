@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import Register from "./components/Register";
 import BaseLayout from "./components/BaseLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import DepartmentList from "./components/DepartmentList";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       {/* Routes with Layout2 */}
       <Route element={<ProtectedRoute layout={AdminPanelLayout}   />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/department-list" element={<DepartmentList />} />
        {/*  <Route path="/profile" element={<Profile />} /> */}
       </Route>
     </Routes>
