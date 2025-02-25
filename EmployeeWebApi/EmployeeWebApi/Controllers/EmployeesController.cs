@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeWebApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
@@ -21,7 +21,19 @@ namespace EmployeeWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            return await _context.Employees.Include(e => e.Department).ToListAsync();
+            return await _context.Employees.Include(e => e.Department).Select(o =>
+                new Employee
+                {
+                    Department = o.Department,
+                    Name = o.Name,
+                    DepartmentId = o.DepartmentId,
+                    Email = o.Email,
+                    HireDate = o.HireDate,
+                    Id = o.Id,
+                    Position = o.Position,
+                    Salary = o.Salary,
+                }
+                ).ToListAsync();
         }
 
         [HttpGet("{id}")]
@@ -40,7 +52,7 @@ namespace EmployeeWebApi.Controllers
         {
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetEmployee), new { id = employee.Id }, employee);
+            return employee;
         }
 
         [HttpPut("{id}")]
@@ -52,7 +64,7 @@ namespace EmployeeWebApi.Controllers
             }
             _context.Entry(employee).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(employee);
         }
 
         [HttpDelete("{id}")]
@@ -69,5 +81,5 @@ namespace EmployeeWebApi.Controllers
         }
     }
 
-    
+
 }

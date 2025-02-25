@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeWebApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : ControllerBase
@@ -21,13 +21,13 @@ namespace EmployeeWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> GetDepartments()
         {
-            return await _context.Departments.Include(d => d.Employees).ToListAsync();
+            return await _context.Departments.ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Department>> GetDepartment(int id)
         {
-            var department = await _context.Departments.Include(d => d.Employees).FirstOrDefaultAsync(d => d.Id == id);
+            var department = await _context.Departments.FirstOrDefaultAsync(d => d.Id == id);
             if (department == null)
             {
                 return NotFound();
@@ -40,7 +40,7 @@ namespace EmployeeWebApi.Controllers
         {
             _context.Departments.Add(department);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetDepartment), new { id = department.Id }, department);
+            return department;
         }
 
         [HttpPut("{id}")]
@@ -52,7 +52,7 @@ namespace EmployeeWebApi.Controllers
             }
             _context.Entry(department).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(department);
         }
 
         [HttpDelete("{id}")]

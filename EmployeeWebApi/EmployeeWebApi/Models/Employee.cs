@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace EmployeeWebApi.Models
 {
@@ -28,6 +29,6 @@ namespace EmployeeWebApi.Models
 
         [ForeignKey("DepartmentId")]
         public int DepartmentId { get; set; }
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
     }
 }
