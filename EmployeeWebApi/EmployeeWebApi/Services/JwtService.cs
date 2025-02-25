@@ -29,8 +29,8 @@ namespace EmployeeWebApi.Services
             };
 
             var token = new JwtSecurityToken(
-                issuer: "JwtAuthApi",
-                audience: "JwtAuthApi",
+                issuer: "EmployeeWebApi",
+                audience: "EmployeeWebApi",
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(_expiryDuration),
                 signingCredentials: credentials
