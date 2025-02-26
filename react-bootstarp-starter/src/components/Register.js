@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../features/userSlice';
 import { useNavigate,Link } from 'react-router-dom'; // Import useNavigate
-
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -26,10 +26,11 @@ const Register = () => {
       const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.password !== repeatPassword) {
-            alert("Passwords do not match");
+            toast.error("Passwords do not match");
             return;
           }
-        dispatch(registerUser(formData));
+        dispatch(registerUser(formData)).unwrap();
+        toast.success('Registered successfully!'); 
       };
 
       // Redirect to login page after successful registration

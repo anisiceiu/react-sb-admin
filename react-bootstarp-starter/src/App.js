@@ -6,6 +6,10 @@ import Register from "./components/Register";
 import BaseLayout from "./components/BaseLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DepartmentList from "./components/DepartmentList";
+import AddDepartment from "./components/AddDepartment";
+import 'react-toastify/dist/ReactToastify.css';
+import EditDepartmentForm from "./components/EditDepartmentForm";
+
 
 function App() {
   return (
@@ -23,6 +27,8 @@ function App() {
       <Route element={<ProtectedRoute layout={AdminPanelLayout}   />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/department-list" element={<DepartmentList />} />
+        <Route path="/add-department" element={<AddDepartment />} />
+        <Route path="/department/:id" element={<EditDepartmentForm />} />
        {/*  <Route path="/profile" element={<Profile />} /> */}
       </Route>
     </Routes>

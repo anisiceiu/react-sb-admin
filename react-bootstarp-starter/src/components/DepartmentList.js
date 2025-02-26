@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDepartments } from '../features/departmentSlice';
+import { fetchDepartments,deleteDepartment } from '../features/departmentSlice';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const DepartmentList = () => {
     const dispatch = useDispatch();
@@ -17,10 +19,28 @@ const DepartmentList = () => {
       if (status === 'loading') return <div>Loading...</div>;
       if (status === 'failed') return <div>Error: {error}</div>;
      
+      const handleDelete = (id) => {
+        // Dispatch the deleteDepartment action
+       try{
+        dispatch(deleteDepartment(id)).unwrap();
+        toast.success('Department deleted successfully!'); 
+       }
+       catch(error)
+       {
+        toast.error('Department failed to delete');
+       } 
+      };
+
+      
      return (
         <div>
-            
-            
+            <h1>Departments</h1>
+            <Link to="/add-department" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                        <span class="text">Add Department</span>
+                                    </Link>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -35,7 +55,8 @@ const DepartmentList = () => {
                     <tr key={dept.id}>
                         <td>{dept.id}</td>
                         <td>{dept.name}</td>
-                        <td><i class="fas fa-fw fa-edit text-primary"></i> | <i class="fas fa-fw fa-trash text-danger"></i></td>
+                        <td><Link to={`/department/${dept.id}`} ><i class="fas fa-fw fa-edit text-primary"></i></Link> |
+                        <Link onClick={()=>handleDelete(dept.id)}><i class="fas fa-fw fa-trash text-danger"></i></Link> </td>
                     </tr>
                  )
 
