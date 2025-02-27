@@ -70,7 +70,7 @@ const employeeSlice = createSlice({
                 state.employees[index]=action.payload;
             }
         }).addCase(deleteEmployee.fulfilled,(state,action)=>{
-            state.employees = state.employees.filter(emp=> emp.id !== action.payload);
+            state.employees = state.employees.filter(emp=> emp.id !== action.payload.id);
         })
     },
 });

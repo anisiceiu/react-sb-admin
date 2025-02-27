@@ -77,7 +77,7 @@ namespace EmployeeWebApi.Controllers
             }
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok(employee);
         }
     }
 

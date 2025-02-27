@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditDepartmentForm from "./components/EditDepartmentForm";
 import EmployeeList from "./components/EmployeeList";
 import AddEmployee from "./components/AddEmployee";
+import EditEmployeeForm from "./components/EditEmployeeForm";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/department/:id" element={<EditDepartmentForm />} />
         <Route path="/employee-list" element={<EmployeeList />} />
         <Route path="/add-employee" element={<AddEmployee />} />
+        <Route path="/employee/:id" element={<EditEmployeeForm />} />
        {/*  <Route path="/profile" element={<Profile />} /> */}
       </Route>
     </Routes>

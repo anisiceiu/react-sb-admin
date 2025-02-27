@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDepartments } from '../features/departmentSlice';
-import {addEmployee} from '../features/employeeSlice';
+import { updateEmployee} from '../features/employeeSlice';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 
-const AddEmployee = () => {
+const EditEmployeeForm = () => {
   const [employee, setEmployee] = useState({
     name: '',
     email: '',
@@ -14,6 +14,23 @@ const AddEmployee = () => {
     hireDate: '',
     departmentId: 0
   });
+
+  const { id } = useParams();
+
+  // Fetch the department to edit
+    const employeeObj = useSelector((state) =>
+      state.employee.employees.find((emp) => emp.id === parseInt(id))
+    );
+    
+    useEffect(()=>{
+      if(employeeObj)
+      {
+        //const date = new Date(employeeObj.hireDate);
+        //const formattedDate = date.toISOString().split('T')[0]; 
+        //let hireDate=new Date(formattedDate);
+        setEmployee({...employeeObj,hireDate:new Date(employeeObj.hireDate).toISOString().split('T')[0]});
+      }
+    },[employeeObj]);
 
   const dispatch = useDispatch();
   const departments = useSelector((state) => state.department.departments);
@@ -35,7 +52,7 @@ const AddEmployee = () => {
     e.preventDefault();
     // Submit the form data to your backend or handle it as needed
     try {
-      dispatch(addEmployee({...employee,department:{name:departments.find(d=> d.id === parseInt(employee.departmentId))?.name}})).unwrap();
+      dispatch(updateEmployee({...employee,department:{name:departments.find(d=> d.id === parseInt(employee.departmentId))?.name}})).unwrap();
       setEmployee({
         name: '',
         email: '',
@@ -53,7 +70,7 @@ const AddEmployee = () => {
 
   return (
     <div className='col-6'>
-      <h1>Add Employee</h1>
+      <h1>Edit Employee</h1>
       <Link to='/employee-list'>Back To List</Link>
       <hr/>
       <form onSubmit={handleSubmit} className="container mt-4">
@@ -123,11 +140,11 @@ const AddEmployee = () => {
             ))}
           </select>
         </div>
-        <button type="submit" className="btn btn-primary">Add Employee</button>
+        <button type="submit" className="btn btn-primary">Update Employee</button>
       </form>
     </div>
   )
 
 }
 
-export default AddEmployee;
+export default EditEmployeeForm;
