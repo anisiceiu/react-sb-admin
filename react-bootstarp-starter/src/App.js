@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import AdminPanelLayout from "./components/AdminPanelLayout";
 import Dashboard from "./components/Dashboard";
@@ -9,6 +9,8 @@ import DepartmentList from "./components/DepartmentList";
 import AddDepartment from "./components/AddDepartment";
 import 'react-toastify/dist/ReactToastify.css';
 import EditDepartmentForm from "./components/EditDepartmentForm";
+import EmployeeList from "./components/EmployeeList";
+import AddEmployee from "./components/AddEmployee";
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
         <Route path="/department-list" element={<DepartmentList />} />
         <Route path="/add-department" element={<AddDepartment />} />
         <Route path="/department/:id" element={<EditDepartmentForm />} />
+        <Route path="/employee-list" element={<EmployeeList />} />
+        <Route path="/add-employee" element={<AddEmployee />} />
        {/*  <Route path="/profile" element={<Profile />} /> */}
       </Route>
     </Routes>

@@ -40,9 +40,8 @@ const Sidebar = () => {
                         <div className="bg-white py-2 collapse-inner rounded">
                             
                             <Link className="collapse-item" to="/department-list">Department List</Link>
-                            <a className="collapse-item" href="utilities-border.html">Borders</a>
-                            <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a className="collapse-item" href="utilities-other.html">Other</a>
+                            <Link className="collapse-item" to="/employee-list">Employee List</Link>
+                            
                         </div>
                     </div>
                 </li>

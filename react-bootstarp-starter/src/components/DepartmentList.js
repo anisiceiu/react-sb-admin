@@ -52,11 +52,11 @@ const DepartmentList = () => {
      return (
         <div>
             <h1>Departments</h1>
-            <Link to="/add-department" class="btn btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-plus"></i>
+            <Link to="/add-department" className="btn btn-primary btn-icon-split">
+                                        <span className="icon text-white-50">
+                                            <i className="fas fa-plus"></i>
                                         </span>
-                                        <span class="text">Add Department</span>
+                                        <span className="text">Add Department</span>
                                     </Link>
             <table className="table table-striped">
                 <thead>
@@ -72,8 +72,8 @@ const DepartmentList = () => {
                     <tr key={dept.id}>
                         <td>{dept.id}</td>
                         <td>{dept.name}</td>
-                        <td><Link to={`/department/${dept.id}`} ><i class="fas fa-fw fa-edit text-primary"></i></Link> |
-                        <Link onClick={()=>showConfirmDialog(dept.id)}><i class="fas fa-fw fa-trash text-danger"></i></Link> </td>
+                        <td><Link to={`/department/${dept.id}`} ><i className="fas fa-fw fa-edit text-primary"></i></Link> |
+                        <Link onClick={()=>showConfirmDialog(dept.id)}><i className="fas fa-fw fa-trash text-danger"></i></Link> </td>
                     </tr>
                  )
 

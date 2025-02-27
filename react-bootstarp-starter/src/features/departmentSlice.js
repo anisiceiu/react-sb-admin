@@ -5,7 +5,7 @@ import api from '../utils/api';
 const baseURL="/departments";
 // Async Thunks for CRUD operations
 export const fetchDepartments = createAsyncThunk(
-  'departments/fetchDepartments',
+  'department/fetchDepartments',
   async () => {
     const response = await api.get(baseURL);
     return response.data;
@@ -13,7 +13,7 @@ export const fetchDepartments = createAsyncThunk(
 );
 
 export const addDepartment = createAsyncThunk(
-  'departments/addDepartment',
+  'department/addDepartment',
   async (department) => {
     const response = await api.post(baseURL, department);
     return response.data;
@@ -21,7 +21,7 @@ export const addDepartment = createAsyncThunk(
 );
 
 export const updateDepartment = createAsyncThunk(
-  'departments/updateDepartment',
+  'department/updateDepartment',
   async (department) => {
     const response = await api.put(`${baseURL}/${department.id}`, department);
     return response.data;
@@ -29,7 +29,7 @@ export const updateDepartment = createAsyncThunk(
 );
 
 export const deleteDepartment = createAsyncThunk(
-  'departments/deleteDepartment',
+  'department/deleteDepartment',
   async (id) => {
     await api.delete(`${baseURL}/${id}`);
     return id;
