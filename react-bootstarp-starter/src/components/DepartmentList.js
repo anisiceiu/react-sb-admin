@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDepartments,deleteDepartment } from '../features/departmentSlice';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ConfirmModal from './ConfirmModal';
 
 const DepartmentList = () => {
+    const [show,setShow]=useState(false);
+    const [departmentToDelete,setDepartmentToDelete]=useState(null);
     const dispatch = useDispatch();
     const departments = useSelector((state) => state.department.departments);
     const status = useSelector((state) => state.department.status);
@@ -31,6 +34,20 @@ const DepartmentList = () => {
        } 
       };
 
+      const showConfirmDialog=(id)=>{
+        setDepartmentToDelete(id);
+        setShow(true);
+      }
+
+      const handleClose = () =>{
+        setShow(false);
+        setDepartmentToDelete(null);
+      }
+
+      const handleConfirm = () =>{
+        handleDelete(departmentToDelete);
+        setShow(false);
+      }
       
      return (
         <div>
@@ -56,7 +73,7 @@ const DepartmentList = () => {
                         <td>{dept.id}</td>
                         <td>{dept.name}</td>
                         <td><Link to={`/department/${dept.id}`} ><i class="fas fa-fw fa-edit text-primary"></i></Link> |
-                        <Link onClick={()=>handleDelete(dept.id)}><i class="fas fa-fw fa-trash text-danger"></i></Link> </td>
+                        <Link onClick={()=>showConfirmDialog(dept.id)}><i class="fas fa-fw fa-trash text-danger"></i></Link> </td>
                     </tr>
                  )
 
@@ -65,7 +82,14 @@ const DepartmentList = () => {
                  }
                 </tbody>
             </table>
+            <ConfirmModal
+             show={show}
+             message="Are you sure to proceed?"
+             handleClose={handleClose}
+             handleConfirm={handleConfirm}
+            />
         </div>
+
     ) 
 }
 
