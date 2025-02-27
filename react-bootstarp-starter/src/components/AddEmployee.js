@@ -1,6 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {fetchDepartments} from '../features/departmentSlice';
+import { fetchDepartments } from '../features/departmentSlice';
+import {addEmployee} from '../features/employeeSlice';
+import { toast } from 'react-toastify';
 
 const AddEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -9,7 +11,7 @@ const AddEmployee = () => {
     position: '',
     salary: '',
     hireDate: '',
-    department: ''
+    departmentId: 0
   });
 
   const dispatch = useDispatch();
@@ -31,80 +33,95 @@ const AddEmployee = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Submit the form data to your backend or handle it as needed
-    console.log(employee);
+    try {
+      dispatch(addEmployee({...employee})).unwrap();
+      setEmployee({
+        name: '',
+        email: '',
+        position: '',
+        salary: '',
+        hireDate: '',
+        departmentId: 0
+      });
+      toast.success('Department added successfully!');
+    }
+    catch (error) {
+      toast.error('Failed to add department');
+    }
   };
 
   return (
-     <div className='col-6'>
-    <form onSubmit={handleSubmit} className="container mt-4">
-    <div className="mb-3">
-      <label className="form-label">Name:</label>
-      <input
-        type="text"
-        className="form-control"
-        name="name"
-        value={employee.name}
-        onChange={handleChange}
-      />
+    <div className='col-6'>
+      <form onSubmit={handleSubmit} className="container mt-4">
+        <div className="mb-3">
+          <label className="form-label">Name:</label>
+          <input
+            type="text"
+            className="form-control"
+            name="name"
+            value={employee.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Email:</label>
+          <input
+            type="email"
+            className="form-control"
+            name="email"
+            value={employee.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Position:</label>
+          <input
+            type="text"
+            className="form-control"
+            name="position"
+            value={employee.position}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Salary:</label>
+          <input
+            type="number"
+            className="form-control"
+            name="salary"
+            value={employee.salary}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Hire Date:</label>
+          <input
+            type="date"
+            className="form-control"
+            name="hireDate"
+            value={employee.hireDate}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Department:</label>
+          <select
+            className="form-select form-control"
+            name="departmentId"
+            value={employee.departmentId}
+            onChange={handleChange}
+          >
+            <option value="">Select Department</option>
+            {departments.map((dept) => (
+              <option key={dept.id} value={dept.id}>
+                {dept.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button type="submit" className="btn btn-primary">Add Employee</button>
+      </form>
     </div>
-    <div className="mb-3">
-      <label className="form-label">Email:</label>
-      <input
-        type="email"
-        className="form-control"
-        name="email"
-        value={employee.email}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="mb-3">
-      <label className="form-label">Position:</label>
-      <input
-        type="text"
-        className="form-control"
-        name="position"
-        value={employee.position}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="mb-3">
-      <label className="form-label">Salary:</label>
-      <input
-        type="number"
-        className="form-control"
-        name="salary"
-        value={employee.salary}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="mb-3">
-      <label className="form-label">Hire Date:</label>
-      <input
-        type="date"
-        className="form-control"
-        name="hireDate"
-        value={employee.hireDate}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="mb-3">
-      <label className="form-label">Department:</label>
-      <select
-        className="form-select form-control"
-        name="department"
-        value={employee.department}
-        onChange={handleChange}
-      >
-        {departments.map((dept) => (
-          <option key={dept.id} value={dept.name}>
-            {dept.name}
-          </option>
-        ))}
-      </select>
-    </div>
-    <button type="submit" className="btn btn-primary">Add Employee</button>
-  </form>
-  </div>
   )
 
 }

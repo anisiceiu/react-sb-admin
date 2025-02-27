@@ -16,10 +16,19 @@ export const fetchEmployees= createAsyncThunk(
 }
 );
 
-export const addEmployee=createAsyncThunk(
-    'employee/addEmployee',async (employee) =>{
-        const response = await api.post(baseURL,employee);
-        return response.data;
+export const addEmployee = createAsyncThunk(
+    'employee/addEmployee', async (employee, { rejectWithValue }) => {
+        try {
+            console.log("Payload:", employee);
+            const response = await api.post(baseURL, employee);
+            return response.data;
+        } catch (error) {
+            if (error.response && error.response.data) {
+                return rejectWithValue(error.response.data);
+            } else {
+                return rejectWithValue(error.message);
+            }
+        }
     }
 );
 
