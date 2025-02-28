@@ -41,7 +41,8 @@ const Sidebar = () => {
                             
                             <Link className="collapse-item" to="/department-list">Department List</Link>
                             <Link className="collapse-item" to="/employee-list">Employee List</Link>
-                            
+                            <Link className="collapse-item" to="/department-grid">Department Grid</Link>
+                            <Link className="collapse-item" to="/employee-grid">Employee Grid</Link>
                         </div>
                     </div>
                 </li>

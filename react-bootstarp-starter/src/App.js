@@ -12,6 +12,8 @@ import EditDepartmentForm from "./components/EditDepartmentForm";
 import EmployeeList from "./components/EmployeeList";
 import AddEmployee from "./components/AddEmployee";
 import EditEmployeeForm from "./components/EditEmployeeForm";
+import DepartmentGrid from "./pages/DepartmentGrid";
+import EmployeeGrid from "./pages/EmployeeGrid";
 
 
 function App() {
@@ -30,9 +32,11 @@ function App() {
       <Route element={<ProtectedRoute layout={AdminPanelLayout}   />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/department-list" element={<DepartmentList />} />
+        <Route path="/department-grid" element={<DepartmentGrid />} />
         <Route path="/add-department" element={<AddDepartment />} />
         <Route path="/department/:id" element={<EditDepartmentForm />} />
         <Route path="/employee-list" element={<EmployeeList />} />
+        <Route path="/employee-grid" element={<EmployeeGrid />} />
         <Route path="/add-employee" element={<AddEmployee />} />
         <Route path="/employee/:id" element={<EditEmployeeForm />} />
        {/*  <Route path="/profile" element={<Profile />} /> */}
