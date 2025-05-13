@@ -15,6 +15,27 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 const EmployeeGrid = () => {
     const [show,setShow]=useState(false);
     const [employeeToDelete,setEmployeeToDelete]=useState(null);
+const [columnDefs] = useState([
+    { headerName: 'ID', field: 'id', sortable: true, filter: true },
+    { headerName: 'Name', field: 'name', sortable: true, filter: true },
+    { headerName: 'Email', field: 'email', sortable: true, filter: true },
+    { headerName: 'Position', field: 'position', sortable: true, filter: true },
+    { headerName: 'Salary', field: 'salary', sortable: true, filter: true },
+    { headerName: 'HireDate', field: 'hireDate', sortable: true, filter: true },
+    { headerName: 'Department', field: 'department.name', sortable: true, filter: true },
+    {
+      headerName: 'Actions',
+      cellRenderer: (params) => {
+         if (!params?.data) return null;
+        return (
+         params && <div>
+            <Link to={`/employee/${params?.data?.id}`} ><i className="fas fa-fw fa-edit text-primary"></i></Link>
+            <Link onClick={()=>showConfirmDialog(params?.data?.id)}><i className="fas fa-fw fa-trash text-danger"></i></Link>
+          </div>
+        );
+      }
+    }
+  ]);
 
   const dispatch = useDispatch();
   const { employees: rowData, status, error } = useSelector((state) => state.employee);
@@ -56,26 +77,9 @@ const EmployeeGrid = () => {
         }
         
 
-  const columnDefs = [
-    { headerName: 'ID', field: 'id', sortable: true, filter: true },
-    { headerName: 'Name', field: 'name', sortable: true, filter: true },
-    { headerName: 'Email', field: 'email', sortable: true, filter: true },
-    { headerName: 'Position', field: 'position', sortable: true, filter: true },
-    { headerName: 'Salary', field: 'salary', sortable: true, filter: true },
-    { headerName: 'HireDate', field: 'hireDate', sortable: true, filter: true },
-    { headerName: 'Department', field: 'department.name', sortable: true, filter: true },
-    {
-      headerName: 'Actions',
-      cellRenderer: (params) => {
-        return (
-          <div>
-            <Link to={`/employee/${params.data.id}`} ><i className="fas fa-fw fa-edit text-primary"></i></Link>
-            <Link onClick={()=>showConfirmDialog(params.data.id)}><i className="fas fa-fw fa-trash text-danger"></i></Link>
-          </div>
-        );
-      }
-    }
-  ];
+  
+
+  
 
   
   
@@ -83,7 +87,7 @@ const EmployeeGrid = () => {
     <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
       <AgGridReact
         columnDefs={columnDefs}
-        rowData={rowData}
+        rowData={rowData || []}
         pagination={true}
         defaultColDef={{
           flex: 1,
