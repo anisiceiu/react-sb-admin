@@ -7,6 +7,7 @@ This repository contains a full-stack web application built using the following 
 - **Redux** – State management using Redux Toolkit
 - **Bootstrap 5 (SB Admin)** – Responsive and styled admin dashboard template
 - **JWT Authentication** – Secure user login and role-based access
+- **Ag-grid**
 
 ### ⚙️ Backend
 - **ASP.NET Core Web API** – RESTful API for business logic and data access
